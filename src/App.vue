@@ -12,10 +12,9 @@
           >
           on how to make biochar
         </li>
-        <li>Take before picture of agriculture waste (see example)</li>
-        <li>Make biochar - take a picture during (see example)</li>
-        <li>Take after picture that shows the full biochar (see example)</li>
-        <li>Take before picture of agriculture waste (see example)</li>
+        <li>Take before picture(s) of agriculture waste (see example)</li>
+        <li>Make biochar - take during picture(s) (see example)</li>
+        <li>Take after picture(s) that shows the full biochar (see example)</li>
         <li>
           Take after picture that shows agriculture waste is gone. (see example)
         </li>
