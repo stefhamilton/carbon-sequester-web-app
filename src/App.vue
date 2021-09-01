@@ -2,7 +2,7 @@
   <div class="app-container">
     <h1>Carbon Sequester Proof Web App</h1>
     <div class="how-to">
-      <h4>How to create biochar:</h4>
+      <h2>How to Create Biochar</h2>
       <ol class="how-to-list">
         <li>
           View youtube
