@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    Hello Stefan
+    Hello Jared
   </div>
 </template>
 
