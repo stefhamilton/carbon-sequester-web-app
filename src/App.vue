@@ -24,6 +24,7 @@
         Adding multiple photos of each stage (before, during, after) with
         descriptions will maximize your $ payment $
       </p>
+      <p>TIP: Have all photos already saved to your phone's camera roll</p>
     </div>
     <div class="form-container">
       <h1>Submit Proof of Biochar Carbon Capture</h1>
@@ -316,6 +317,10 @@ export default {
   flex-direction: column;
   align-items: center;
 
+  h1 {
+    text-align: center;
+  }
+
   .how-to {
     // width: 30rem;
 
@@ -328,6 +333,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    h1 {
+      text-align: center;
+    }
 
     .form {
       width: 25rem;
