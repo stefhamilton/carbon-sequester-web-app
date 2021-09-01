@@ -330,7 +330,7 @@ export default {
     align-items: center;
 
     .form {
-      // width: 30rem;
+      width: 25rem;
       display: flex;
       flex-direction: column;
 
