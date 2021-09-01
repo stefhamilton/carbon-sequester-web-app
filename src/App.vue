@@ -93,6 +93,7 @@
               </div>
               <div class="right">
                 <label>
+                  Photo Description:
                   <textarea cols="30" rows="10"></textarea>
                 </label>
               </div>
@@ -111,6 +112,7 @@
               </div>
               <div class="right">
                 <label>
+                  Photo Description:
                   <textarea cols="30" rows="10"></textarea>
                 </label>
               </div>
@@ -129,6 +131,7 @@
               </div>
               <div class="right">
                 <label>
+                  Photo Description:
                   <textarea cols="30" rows="10"></textarea>
                 </label>
               </div>
