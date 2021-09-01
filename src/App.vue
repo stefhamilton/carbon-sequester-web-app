@@ -168,7 +168,7 @@ export default {
   components: {},
   data() {
     return {
-      stage: 5,
+      stage: 0,
       nextButtonDisabled: false,
       formData: {
         name: '',
