@@ -317,10 +317,10 @@ export default {
   align-items: center;
 
   .how-to {
-    width: 30rem;
+    // width: 30rem;
 
     .how-to-list {
-      width: 20rem;
+      // width: 20rem;
     }
   }
 
@@ -330,7 +330,7 @@ export default {
     align-items: center;
 
     .form {
-      width: 30rem;
+      // width: 30rem;
       display: flex;
       flex-direction: column;
 
