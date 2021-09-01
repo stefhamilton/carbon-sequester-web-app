@@ -342,7 +342,6 @@ export default {
     }
 
     .form {
-      width: 25rem;
       display: flex;
       flex-direction: column;
 
