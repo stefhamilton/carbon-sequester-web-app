@@ -389,6 +389,7 @@ export default {
           url: this.photoUploadResults[photo.name],
           name: photo.name,
           description: this.formData.photoDescriptions[photo.name],
+          storagePath: `${this.formData.referenceId}/${photo.name}`,
         });
       });
       this.formData.duringPhotos.forEach((photo) => {
@@ -396,6 +397,7 @@ export default {
           url: this.photoUploadResults[photo.name],
           name: photo.name,
           description: this.formData.photoDescriptions[photo.name],
+          storagePath: `${this.formData.referenceId}/${photo.name}`,
         });
       });
       this.formData.afterPhotos.forEach((photo) => {
@@ -403,6 +405,7 @@ export default {
           url: this.photoUploadResults[photo.name],
           name: photo.name,
           description: this.formData.photoDescriptions[photo.name],
+          storagePath: `${this.formData.referenceId}/${photo.name}`,
         });
       });
 
