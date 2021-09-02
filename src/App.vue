@@ -27,16 +27,16 @@
     </div>
     <div class="form-container">
       <h1>Submit Proof of Biochar Carbon Capture</h1>
-      <form class="form">
+      <form class="form" @submit="handleSubmit">
         <div class="stage" v-show="stage === 0">
           <h2>Basic Information</h2>
           <label>
             Name:
-            <input type="text" required v-model="formData.name" />
+            <input type="text" v-model="formData.name" />
           </label>
           <label>
             Phone Number:
-            <input type="tel" required v-model="formData.phoneNumber" />
+            <input type="tel" v-model="formData.phoneNumber" />
           </label>
           <label>
             Payment Method:
@@ -48,7 +48,7 @@
           </label>
         </div>
         <div class="stage" v-show="stage === 1">
-          <h2>Upload "Before Photos" (minimum of 1)</h2>
+          <h2>Upload "Before Photos" (select 1 or more photos)</h2>
           <input
             type="file"
             @change="handleBeforePhotos"
@@ -58,7 +58,7 @@
           />
         </div>
         <div class="stage" v-show="stage === 2">
-          <h2>Upload "During Photos" (minimum of 1)</h2>
+          <h2>Upload "During Photos" (select 1 or more photos)</h2>
           <input
             type="file"
             @change="handleDuringPhotos"
@@ -68,7 +68,7 @@
           />
         </div>
         <div class="stage" v-show="stage === 3">
-          <h2>Upload "After Photos" (minimum of 1)</h2>
+          <h2>Upload "After Photos" (select 1 or more photos)</h2>
           <input
             type="file"
             @change="handleAfterPhotos"
@@ -87,17 +87,22 @@
               class="photo-list"
             >
               <div class="left">
-                <img src="" />
-                Upload: X%
+                <img class="preview-image" :src="photo.src" />
+                Upload: {{ photoUploadProgress[photo.name] }}%
               </div>
               <div class="right">
                 <label>
-                  Photo Description:
-                  <textarea cols="30" rows="10"></textarea>
+                  <textarea
+                    v-model="formData.photoDescriptions[photo.name]"
+                    cols="30"
+                    rows="10"
+                  ></textarea>
+                  <div>Photo Description</div>
                 </label>
               </div>
             </div>
           </div>
+          <div class="divider-line"></div>
           <div>
             <h3>During Photos</h3>
             <div
@@ -106,17 +111,22 @@
               class="photo-list"
             >
               <div class="left">
-                <img src="" />
-                Upload: X%
+                <img class="preview-image" :src="photo.src" />
+                Upload: {{ photoUploadProgress[photo.name] }}%
               </div>
               <div class="right">
                 <label>
-                  Photo Description:
-                  <textarea cols="30" rows="10"></textarea>
+                  <textarea
+                    v-model="formData.photoDescriptions[photo.name]"
+                    cols="30"
+                    rows="10"
+                  ></textarea>
+                  <div>Photo Description</div>
                 </label>
               </div>
             </div>
           </div>
+          <div class="divider-line"></div>
           <div>
             <h3>After Photos</h3>
             <div
@@ -125,21 +135,25 @@
               class="photo-list"
             >
               <div class="left">
-                <img src="" />
-                Upload: X%
+                <img class="preview-image" :src="photo.src" />
+                Upload: {{ photoUploadProgress[photo.name] }}%
               </div>
               <div class="right">
                 <label>
-                  Photo Description:
-                  <textarea cols="30" rows="10"></textarea>
+                  <textarea
+                    v-model="formData.photoDescriptions[photo.name]"
+                    cols="30"
+                    rows="10"
+                  ></textarea>
+                  <div>Photo Description</div>
                 </label>
               </div>
             </div>
           </div>
           <button
             type="submit"
+            class="next-button"
             :disabled="submitButtonDisabled"
-            @submit="handleSubmit"
           >
             SUBMIT
           </button>
@@ -147,7 +161,7 @@
         <div v-show="stage === 5">
           <h3>CONGRATULATIONS</h3>
           <p>You've successfully submitted proof of Biochar Carbon Capture</p>
-          <p>Your Reference ID: X</p>
+          <p>Your Reference ID: {{ formData.referenceId }}</p>
           <p>
             Would you like to submit additional proofs?
             <button type="button" @click="handleReset">Click Here</button>
@@ -158,6 +172,7 @@
         @click="handleNextButtonClick"
         :disabled="nextButtonDisabled"
         v-show="stage < 4"
+        class="next-button"
       >
         NEXT
       </button>
@@ -166,6 +181,10 @@
 </template>
 
 <script>
+import { v4 as uuid } from 'uuid';
+import FirebaseService from './FirebaseService';
+import moment from 'moment';
+
 export default {
   name: 'App',
   components: {},
@@ -180,16 +199,20 @@ export default {
         beforePhotos: [],
         duringPhotos: [],
         afterPhotos: [],
+        referenceId: '',
+        photoDescriptions: {},
       },
       submitButtonDisabled: true,
       localization: {
         en: {},
         hil: {},
       },
+      photoUploadProgress: {},
+      photoUploadResults: {},
     };
   },
   methods: {
-    handleNextButtonClick() {
+    async handleNextButtonClick() {
       if (this.stage === 0) {
         if (!this.formData.name) {
           alert('Name field is misssing');
@@ -205,6 +228,8 @@ export default {
           alert('Payment Method field is misssing');
           return;
         }
+
+        this.stage++;
       } else if (this.stage === 1) {
         if (this.formData.beforePhotos.length === 0) {
           this.nextButtonDisabled = true;
@@ -218,6 +243,8 @@ export default {
             return;
           }
         }
+
+        this.stage++;
       } else if (this.stage === 2) {
         if (this.formData.duringPhotos.length === 0) {
           this.nextButtonDisabled = true;
@@ -231,6 +258,8 @@ export default {
             return;
           }
         }
+
+        this.stage++;
       } else if (this.stage === 3) {
         if (this.formData.afterPhotos.length === 0) {
           this.nextButtonDisabled = true;
@@ -244,13 +273,73 @@ export default {
             return;
           }
         }
-      } else if (this.stage === 4) {
-        // TOOD: start uploading files, once all uploads complete, enable SUBMIT button
 
-        this.nextButtonDisabled = true;
+        // START UPLOADING PHOTOS
+        const photoUploadPromises = [];
+        this.formData.referenceId = uuid();
+
+        for (const photo of this.formData.beforePhotos) {
+          photo.src = URL.createObjectURL(photo);
+
+          this.photoUploadProgress[photo.name] = 0;
+          this.formData.photoDescriptions[photo.name] = '';
+
+          photoUploadPromises.push(
+            FirebaseService.uploadFile(
+              photo,
+              `${this.formData.referenceId}/${photo.name}`,
+              this.setPhotoUploadProgress
+            )
+          );
+        }
+
+        for (const photo of this.formData.duringPhotos) {
+          photo.src = URL.createObjectURL(photo);
+
+          this.photoUploadProgress[photo.name] = 0;
+          this.formData.photoDescriptions[photo.name] = '';
+
+          photoUploadPromises.push(
+            FirebaseService.uploadFile(
+              photo,
+              `${this.formData.referenceId}/${photo.name}`,
+              this.setPhotoUploadProgress
+            )
+          );
+        }
+
+        for (const photo of this.formData.afterPhotos) {
+          photo.src = URL.createObjectURL(photo);
+
+          this.photoUploadProgress[photo.name] = 0;
+          this.formData.photoDescriptions[photo.name] = '';
+
+          photoUploadPromises.push(
+            FirebaseService.uploadFile(
+              photo,
+              `${this.formData.referenceId}/${photo.name}`,
+              this.setPhotoUploadProgress
+            )
+          );
+        }
+
+        this.stage++;
+
+        try {
+          const resultPromises = await Promise.all(photoUploadPromises);
+
+          this.submitButtonDisabled = false;
+
+          for (const result of resultPromises) {
+            this.photoUploadResults[result.name] = result.downloadUrl;
+          }
+        } catch (error) {
+          // nothing
+        }
       }
-
-      this.stage++;
+    },
+    setPhotoUploadProgress(name, progress) {
+      this.photoUploadProgress[name] = progress;
     },
     handleBeforePhotos() {
       this.formData.beforePhotos = this.$refs.beforePhotos.files;
@@ -288,8 +377,55 @@ export default {
         this.nextButtonDisabled = false;
       }
     },
-    handleSubmit() {
-      // TODO: send to server
+    async handleSubmit(event) {
+      event.preventDefault();
+
+      const beforePhotos = [];
+      const duringPhotos = [];
+      const afterPhotos = [];
+
+      this.formData.beforePhotos.forEach((photo) => {
+        beforePhotos.push({
+          url: this.photoUploadResults[photo.name],
+          name: photo.name,
+          description: this.formData.photoDescriptions[photo.name],
+        });
+      });
+      this.formData.duringPhotos.forEach((photo) => {
+        duringPhotos.push({
+          url: this.photoUploadResults[photo.name],
+          name: photo.name,
+          description: this.formData.photoDescriptions[photo.name],
+        });
+      });
+      this.formData.afterPhotos.forEach((photo) => {
+        afterPhotos.push({
+          url: this.photoUploadResults[photo.name],
+          name: photo.name,
+          description: this.formData.photoDescriptions[photo.name],
+        });
+      });
+
+      const proof = {
+        referenceId: this.formData.referenceId,
+        name: this.formData.name,
+        phoneNumber: this.formData.phoneNumber,
+        paymentMethod: this.formData.paymentMethod,
+        beforePhotos,
+        duringPhotos,
+        afterPhotos,
+        timestamp: moment()
+          .utc()
+          .unix(),
+      };
+
+      try {
+        await FirebaseService.createDocument('proofs', proof);
+
+        this.stage++;
+      } catch (error) {
+        alert(error.message);
+      }
     },
     handleReset() {
       this.stage = 0;
@@ -331,6 +467,12 @@ export default {
     }
   }
 
+  .divider-line {
+    width: 100%;
+    height: 0.15rem;
+    background: gray;
+  }
+
   .form-container {
     display: flex;
     flex-direction: column;
@@ -353,8 +495,45 @@ export default {
       .photo-list {
         display: flex;
         justify-content: space-between;
+
+        .left,
+        .right label {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .left {
+          margin-right: 1rem;
+        }
+
+        .preview-image {
+          width: 15rem;
+        }
       }
     }
+  }
+
+  .next-button {
+    background-color: #4caf50;
+    border: none;
+    color: #fff;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+
+  .next-button:hover {
+    opacity: 0.75;
+  }
+
+  .next-button:disabled {
+    cursor: no-drop;
+    opacity: 0.5;
   }
 }
 </style>
