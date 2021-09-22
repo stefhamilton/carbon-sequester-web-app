@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h1>How To Create Biochar and Capture Carbon</h1>
+    
+    <h1>How To Create Biochar</h1>
     <div class="how-to">
       <ol class="how-to-list">
         <li>
@@ -11,16 +12,43 @@
           >
           on how to make biochar
         </li>
-        <li>Take before picture(s) of agriculture waste (see example)</li>
-        <li>Make biochar - take during picture(s) (see example)</li>
-        <li>Take after picture(s) that shows the full biochar (see example)</li>
+        <li>Take before picture(s) of agriculture waste (see below)    </li>
+        <img
+      src="@/assets/before.png"
+      height="200"
+      display="block"
+      margin-left="auto"
+      margin-right="auto"
+    />
+            <img
+      src="@/assets/coconut_shells_small.jpg"
+      height="200"
+      display="block"
+      margin-left="auto"
+      margin-right="auto"
+    />
+        <li>Make biochar - take during picture(s) (see below)</li>
+        <img
+      src="@/assets/during_ex.png"
+      height="200"
+      display="block"
+      margin-left="auto"
+      margin-right="auto"
+    />
+        <li>Take after picture(s) that shows the full biochar (see below)</li>
+        <img
+      src="@/assets/after.png"
+      height="200"
+      display="block"
+      margin-left="auto"
+      margin-right="auto"
+    />
         <li>
           Take after picture that shows agriculture waste is gone. (see example)
         </li>
       </ol>
       <p>
-        Adding multiple photos of each stage (before, during, after) with
-        descriptions will maximize your $ payment $
+        The goal is to submit evidence that shows the biochar produced corresponds to new carbon capture that would have otherwise decompomposed. To maximize income, make sure to have pictures and explanations that support your claim.
       </p>
       <p>TIP: Have all photos already saved to your phone's camera roll</p>
       <p>

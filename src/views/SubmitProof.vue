@@ -9,18 +9,24 @@
             Name:
             <input type="text" v-model="formData.name" />
           </label>
+
           <label>
             Phone Number:
             <input type="tel" v-model="formData.phoneNumber" />
           </label>
           <label>
+            Charcoal produced (kg):
+            <input type="int" v-model="formData.charcoal" />
+          </label>
+          <!-- <label>
             Payment Method:
             <select v-model="formData.paymentMethod">
               <option value="" disabled></option>
-              <option value="gcash">GCash</option>
+              <option value="gcash" selected="selected">GCash</option>
               <option value="globe">Globe</option>
             </select>
-          </label>
+          </label> -->
+
         </div>
         <div class="stage" v-show="stage === 1">
           <h2>Upload "Before Photos" (select 1 or more photos)</h2>
@@ -158,25 +164,25 @@
 </template>
 
 <script>
-import { v4 as uuid } from 'uuid';
-import FirebaseService from '@/FirebaseService';
-import moment from 'moment';
+import { v4 as uuid } from "uuid";
+import FirebaseService from "@/FirebaseService";
+import moment from "moment";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {},
   data() {
     return {
       stage: 0,
       nextButtonDisabled: false,
       formData: {
-        name: '',
-        phoneNumber: '',
-        paymentMethod: '',
+        name: "",
+        phoneNumber: "",
+        paymentMethod: "",
         beforePhotos: [],
         duringPhotos: [],
         afterPhotos: [],
-        referenceId: '',
+        referenceId: "",
         photoDescriptions: {},
       },
       submitButtonDisabled: true,
@@ -192,17 +198,17 @@ export default {
     async handleNextButtonClick() {
       if (this.stage === 0) {
         if (!this.formData.name) {
-          alert('Name field is misssing');
+          alert("Name field is misssing");
           return;
         }
 
         if (!this.formData.phoneNumber) {
-          alert('Phone Number field is misssing');
+          alert("Phone Number field is misssing");
           return;
         }
 
         if (!this.formData.paymentMethod) {
-          alert('Payment Method field is misssing');
+          alert("Payment Method field is misssing");
           return;
         }
 
@@ -210,13 +216,13 @@ export default {
       } else if (this.stage === 1) {
         if (this.formData.beforePhotos.length === 0) {
           this.nextButtonDisabled = true;
-          alert('At least 1 before photo is required');
+          alert("At least 1 before photo is required");
           return;
         }
 
         for (const photo of this.formData.beforePhotos) {
-          if (!photo.type.includes('image/jpeg')) {
-            alert('All files must be type JPEG');
+          if (!photo.type.includes("image/jpeg")) {
+            alert("All files must be type JPEG");
             return;
           }
         }
@@ -225,13 +231,13 @@ export default {
       } else if (this.stage === 2) {
         if (this.formData.duringPhotos.length === 0) {
           this.nextButtonDisabled = true;
-          alert('At least 1 during photo is required');
+          alert("At least 1 during photo is required");
           return;
         }
 
         for (const photo of this.formData.duringPhotos) {
-          if (!photo.type.includes('image/jpeg')) {
-            alert('All files must be type JPEG');
+          if (!photo.type.includes("image/jpeg")) {
+            alert("All files must be type JPEG");
             return;
           }
         }
@@ -240,13 +246,13 @@ export default {
       } else if (this.stage === 3) {
         if (this.formData.afterPhotos.length === 0) {
           this.nextButtonDisabled = true;
-          alert('At least 1 after photo is required');
+          alert("At least 1 after photo is required");
           return;
         }
 
         for (const photo of this.formData.afterPhotos) {
-          if (!photo.type.includes('image/jpeg')) {
-            alert('All files must be type JPEG');
+          if (!photo.type.includes("image/jpeg")) {
+            alert("All files must be type JPEG");
             return;
           }
         }
@@ -259,7 +265,7 @@ export default {
           photo.src = URL.createObjectURL(photo);
 
           this.photoUploadProgress[photo.name] = 0;
-          this.formData.photoDescriptions[photo.name] = '';
+          this.formData.photoDescriptions[photo.name] = "";
 
           photoUploadPromises.push(
             FirebaseService.uploadFile(
@@ -274,7 +280,7 @@ export default {
           photo.src = URL.createObjectURL(photo);
 
           this.photoUploadProgress[photo.name] = 0;
-          this.formData.photoDescriptions[photo.name] = '';
+          this.formData.photoDescriptions[photo.name] = "";
 
           photoUploadPromises.push(
             FirebaseService.uploadFile(
@@ -289,7 +295,7 @@ export default {
           photo.src = URL.createObjectURL(photo);
 
           this.photoUploadProgress[photo.name] = 0;
-          this.formData.photoDescriptions[photo.name] = '';
+          this.formData.photoDescriptions[photo.name] = "";
 
           photoUploadPromises.push(
             FirebaseService.uploadFile(
@@ -400,7 +406,7 @@ export default {
       };
 
       try {
-        await FirebaseService.createDocument('proofs', proof);
+        await FirebaseService.createDocument("proofs", proof);
 
         this.stage++;
       } catch (error) {
@@ -411,9 +417,9 @@ export default {
       this.stage = 0;
       this.nextButtonDisabled = false;
       this.formData = {
-        name: '',
-        phoneNumber: '',
-        paymentMethod: '',
+        name: "",
+        phoneNumber: "",
+        paymentMethod: "",
         beforePhotos: [],
         duringPhotos: [],
         afterPhotos: [],
