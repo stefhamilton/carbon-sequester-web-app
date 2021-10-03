@@ -207,11 +207,6 @@ export default {
           return;
         }
 
-        if (!this.formData.paymentMethod) {
-          alert("Payment Method field is misssing");
-          return;
-        }
-
         this.stage++;
       } else if (this.stage === 1) {
         if (this.formData.beforePhotos.length === 0) {
