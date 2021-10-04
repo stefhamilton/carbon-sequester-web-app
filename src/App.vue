@@ -36,23 +36,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'app',
-  // data() {
-  //   this.$i18n.locale = 'en';
-  //   return {
-  //     locale: 'en',
-  //   };
-  // },
-  // watch: {
-  //   locale(val) {
-  //     this.$i18n.locale = val;
-  //   },
-  // },
-};
-</script>
-
 <style lang="scss">
 .app-container {
   font-family: Avenir, Helvetica, Arial, sans-serif;
