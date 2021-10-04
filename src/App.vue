@@ -12,10 +12,10 @@
 <template>
   <div class="app-container">
     <p>message: {{ $t('hello') }}</p>
-    <label for="locale">locale</label>
+    <label for="locale">Language / Locale:</label>
     <select v-model="$i18n.locale">
-      <option>en</option>
-      <option>ja</option>
+      <option value="en">English / en</option>
+      <option value="ja">Japanese / ja</option>
     </select>
     <h1>Carbon Capture Evidence Web App</h1>
     <div id="nav">
