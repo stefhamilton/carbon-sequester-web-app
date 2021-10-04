@@ -1,7 +1,6 @@
 <template>
   <div>
-    
-    <h1>How To Create Biochar</h1>
+    <h1>{{ $t('how-to-create-biochar') }}</h1>
     <div class="how-to">
       <ol class="how-to-list">
         <li>

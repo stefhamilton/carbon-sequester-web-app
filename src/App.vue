@@ -1,23 +1,26 @@
 <i18n>
 {
   "en": {
-    "hello": "hello world!"
+    "app-name":"Carbon Capture Evidence Web App",
+    "how-to-create-biochar":"How To Create Biochar"
   },
-  "ja": {
-    "hello": "こんにちは、世界！"
+  "hil":{
+    "app-name":"Ilonggo app name",
+    "how-to-create-biochar":"How To Create Biochar Ilonggo"
+    
   }
 }
 </i18n>
 
 <template>
   <div class="app-container">
-    <p>message: {{ $t('hello') }}</p>
+    <!-- <p>message: {{ $t('hello') }}</p> -->
     <label for="locale">Language / Locale:</label>
     <select v-model="$i18n.locale">
       <option value="en">English / en</option>
-      <option value="ja">Japanese / ja</option>
+      <option value="hil">Ilonggo / hil</option>
     </select>
-    <h1>Carbon Capture Evidence Web App</h1>
+    <h1>{{ $t('app-name') }}</h1>
     <div id="nav">
       <router-link to="/">Submit Evidence</router-link> |
       <router-link to="/howto">How To</router-link> |
