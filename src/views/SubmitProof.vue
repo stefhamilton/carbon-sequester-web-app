@@ -1,21 +1,21 @@
 <template>
   <div class="submit-proof-container">
     <div class="form-container">
-      <h1>Submit Proof of Biochar Carbon Capture</h1>
+      <h1>{{ $t('submit-proof-of-biochar-carbon-capture') }}</h1>
       <form class="form" @submit="handleSubmit">
         <div class="stage" v-show="stage === 0">
-          <h2>Basic Information</h2>
+          <h2>{{ $t('basic-information') }}</h2>
           <label>
-            Name:
+            {{ $t('name') }}:
             <input type="text" v-model="formData.name" />
           </label>
 
           <label>
-            Phone Number:
+            {{ $t('phone-number') }}:
             <input type="tel" v-model="formData.phoneNumber" />
           </label>
           <label>
-            Charcoal produced (kg):
+            {{ $t('charcoal-produce-(kg)') }}:
             <input type="int" v-model="formData.charcoal" />
           </label>
           <!-- <label>
@@ -28,7 +28,7 @@
           </label> -->
         </div>
         <div class="stage" v-show="stage === 1">
-          <h2>Upload "Before Photos" (select 1 or more photos)</h2>
+          <h2>{{ $t('before-pictures') }}</h2>
           <input
             type="file"
             @change="handleBeforePhotos"

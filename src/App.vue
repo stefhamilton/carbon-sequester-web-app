@@ -2,12 +2,25 @@
 {
   "en": {
     "app-name":"Carbon Capture Evidence Web App",
-    "how-to-create-biochar":"How To Create Biochar"
+    "how-to-create-biochar":"How To Create Biochar",
+    "submit-evidence": "Submit Evidence",
+    "name": "Name",
+    "phone-number": "Phone Number",
+    "basic-information": "Basic Information",
+    "charcoal-produce-(kg)": "Charcoal Produce (kg)",
+    "submit-proof-of-biochar-carbon-capture": "Submit Proof of Biochar Carbon Capture",
+    "before-pictures": "Upload Before Photos (select 1 or more photos)"
   },
   "hil":{
-    "app-name":"Ilonggo app name",
-    "how-to-create-biochar":"How To Create Biochar Ilonggo"
-    
+    "app-name":"Aplikasyong Ebidensya sa Pagkuha ng Karbon",
+    "how-to-create-biochar":"How To Create Biochar Ilonggo",
+    "submit-evidence": "Magsumite ng ebidensya",
+    "name": "Pangalan",
+    "phone-number": "Numero ng Telepono",
+    "basic-information": "Pangunahing Impormasyon",
+    "charcoal-produce-(kg)": "Mga Uling na nagawa (kilo)",
+    "submit-proof-of-biochar-carbon-capture": "Magsumite ng Katunayan ng Biochar Carbon Capture",
+    "before-pictures": "Magsumite ng dasjdhak (pumili ng 1 o marami pang iba)"
   }
 }
 </i18n>
@@ -22,9 +35,9 @@
     </select>
     <h1>{{ $t('app-name') }}</h1>
     <div id="nav">
-      <router-link to="/">Submit Evidence</router-link> |
-      <router-link to="/howto">How To</router-link> |
-      <router-link to="/faq">FAQ</router-link>
+      <router-link to="/">{{ $t('submit-evidence') }}</router-link> |
+      <router-link to="/howto">How To</router-link> 
+      <!-- <router-link to="/faq">FAQ</router-link> -->
     </div>
     <router-view />
   </div>
