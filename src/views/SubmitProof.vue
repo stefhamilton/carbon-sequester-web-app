@@ -38,7 +38,7 @@
           />
         </div>
         <div class="stage" v-show="stage === 2">
-          <h2>Upload "During Photos" (select 1 or more photos)</h2>
+          <h2>{{ $t('during-photos') }} </h2>
           <input
             type="file"
             @change="handleDuringPhotos"
@@ -48,7 +48,7 @@
           />
         </div>
         <div class="stage" v-show="stage === 3">
-          <h2>Upload "After Photos" (select 1 or more photos)</h2>
+          <h2>{{ $t('after-photos') }} </h2>
           <input
             type="file"
             @change="handleAfterPhotos"
@@ -58,9 +58,9 @@
           />
         </div>
         <div class="stage" v-show="stage === 4">
-          <h2>Add Photo Descriptions</h2>
+          <h2>{{ $t('add-photo-descriptions') }}</h2>
           <div>
-            <h3>Before Photos</h3>
+            <h3>{{ $t('before-photos') }}</h3>
             <div
               v-for="photo of formData.beforePhotos"
               :key="photo.name"
@@ -77,14 +77,14 @@
                     cols="30"
                     rows="10"
                   ></textarea>
-                  <div>Photo Description</div>
+                  <div>{{ $t ('photo-description-1') }}</div>
                 </label>
               </div>
             </div>
           </div>
           <div class="divider-line"></div>
           <div>
-            <h3>During Photos</h3>
+            <h3>{{ $t('during-photos-1') }}</h3>
             <div
               v-for="photo of formData.duringPhotos"
               :key="photo.name"
@@ -101,14 +101,14 @@
                     cols="30"
                     rows="10"
                   ></textarea>
-                  <div>Photo Description</div>
+                  <div>{{ $t ('photo-description-2') }}</div>
                 </label>
               </div>
             </div>
           </div>
           <div class="divider-line"></div>
           <div>
-            <h3>After Photos</h3>
+            <h3>{{ $t('after-photos-1') }}</h3>
             <div
               v-for="photo of formData.afterPhotos"
               :key="photo.name"
@@ -125,7 +125,7 @@
                     cols="30"
                     rows="10"
                   ></textarea>
-                  <div>Photo Description</div>
+                  <div>{{ $t ('photo-description-3') }}</div>
                 </label>
               </div>
             </div>
@@ -135,19 +135,19 @@
             class="next-button"
             :disabled="submitButtonDisabled"
           >
-            SUBMIT
+            {{ $t ('submit') }}
           </button>
         </div>
         <div v-show="stage === 5">
-          <h3>CONGRATULATIONS</h3>
-          <p>You've successfully submitted proof of Biochar Carbon Capture</p>
-          <p>Your Reference ID: {{ formData.referenceId }}</p>
+          <h3>{{ $t ('congratulations') }}</h3>
+          <p>{{ $t('successfully-submitted') }}</p>
+          <p>{{ $t ('your-reference') }} {{ formData.referenceId }}</p>
           <p>
-            Would you like to submit additional proofs?
+            {{ $t ('additional-proofs') }}</p>
             <button type="button" class="next-button" @click="handleReset">
-              Click Here
+              {{ $t ('click-here') }}
             </button>
-          </p>
+          
         </div>
       </form>
       <button
@@ -156,7 +156,7 @@
         v-show="stage < 4"
         class="next-button"
       >
-        NEXT
+        {{ $t('next') }}
       </button>
     </div>
   </div>
