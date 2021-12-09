@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import SubmitProof from '../views/SubmitProof.vue';
+import Evaluate from '../views/Evaluate.vue';
 
 const routes = [
   {
@@ -17,11 +18,15 @@ const routes = [
       import(/* webpackChunkName: "about" */ '../views/HowTo.vue'),
   },
   {
-    path:"/faq",
-    name: "FAQ",
-    component: () =>
-      import('../views/FAQ.vue')
-  }
+    path: '/faq',
+    name: 'FAQ',
+    component: () => import('../views/FAQ.vue'),
+  },
+  {
+    path: '/evaluate',
+    name: 'Evaluate',
+    component: Evaluate,
+  },
 ];
 
 const router = createRouter({

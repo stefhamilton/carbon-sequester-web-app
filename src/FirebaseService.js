@@ -16,6 +16,7 @@ if (!firebase.apps.length) {
 
 const storageRef = firebase.storage().ref();
 const firestore = firebase.firestore();
+const auth = firebase.auth();
 
 const uploadFile = (file, fullFilePath, progressCallback) => {
   const uploadTask = storageRef.child(fullFilePath).put(file);
@@ -45,4 +46,16 @@ const createDocument = (collection, document) => {
   return firestore.collection(collection).add(document);
 };
 
-export default { uploadFile, createDocument };
+const subscribeToAuthChanges = (handleAuthChange) => {
+  auth.onAuthStateChanged((user) => {
+    handleAuthChange(user);
+  });
+};
+
+export default {
+  uploadFile,
+  createDocument,
+  firestore,
+  subscribeToAuthChanges,
+  auth,
+};

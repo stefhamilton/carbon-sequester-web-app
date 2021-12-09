@@ -38,7 +38,7 @@
           />
         </div>
         <div class="stage" v-show="stage === 2">
-          <h2>{{ $t('during-photos') }} </h2>
+          <h2>{{ $t('during-photos') }}</h2>
           <input
             type="file"
             @change="handleDuringPhotos"
@@ -48,7 +48,7 @@
           />
         </div>
         <div class="stage" v-show="stage === 3">
-          <h2>{{ $t('after-photos') }} </h2>
+          <h2>{{ $t('after-photos') }}</h2>
           <input
             type="file"
             @change="handleAfterPhotos"
@@ -77,7 +77,7 @@
                     cols="30"
                     rows="10"
                   ></textarea>
-                  <div>{{ $t ('photo-description-1') }}</div>
+                  <div>{{ $t('photo-description-1') }}</div>
                 </label>
               </div>
             </div>
@@ -101,7 +101,7 @@
                     cols="30"
                     rows="10"
                   ></textarea>
-                  <div>{{ $t ('photo-description-2') }}</div>
+                  <div>{{ $t('photo-description-2') }}</div>
                 </label>
               </div>
             </div>
@@ -125,7 +125,7 @@
                     cols="30"
                     rows="10"
                   ></textarea>
-                  <div>{{ $t ('photo-description-3') }}</div>
+                  <div>{{ $t('photo-description-3') }}</div>
                 </label>
               </div>
             </div>
@@ -135,19 +135,19 @@
             class="next-button"
             :disabled="submitButtonDisabled"
           >
-            {{ $t ('submit') }}
+            {{ $t('submit') }}
           </button>
         </div>
         <div v-show="stage === 5">
-          <h3>{{ $t ('congratulations') }}</h3>
+          <h3>{{ $t('congratulations') }}</h3>
           <p>{{ $t('successfully-submitted') }}</p>
-          <p>{{ $t ('your-reference') }} {{ formData.referenceId }}</p>
+          <p>{{ $t('your-reference') }} {{ formData.referenceId }}</p>
           <p>
-            {{ $t ('additional-proofs') }}</p>
-            <button type="button" class="next-button" @click="handleReset">
-              {{ $t ('click-here') }}
-            </button>
-          
+            {{ $t('additional-proofs') }}
+          </p>
+          <button type="button" class="next-button" @click="handleReset">
+            {{ $t('click-here') }}
+          </button>
         </div>
       </form>
       <button
@@ -388,6 +388,7 @@ export default {
 
       const proof = {
         referenceId: this.formData.referenceId,
+        status: 'unevaluated',
         name: this.formData.name,
         phoneNumber: this.formData.phoneNumber,
         paymentMethod: this.formData.paymentMethod,
@@ -449,14 +450,6 @@ export default {
       &.router-link-exact-active {
         color: #42b983;
       }
-    }
-  }
-
-  .how-to {
-    // width: 30rem;
-
-    .how-to-list {
-      // width: 20rem;
     }
   }
 

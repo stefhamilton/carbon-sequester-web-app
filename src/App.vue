@@ -21,6 +21,9 @@
     "ready-to-start": "Ready to start making money while also reducing carbon released into the atmosphere?",
     "get-started": "Get Started ->",
     "how-to": "How to",
+    "evaluate": "Evaluate",
+    "username-is-missing": "Username is Missing",
+    "password-is-missing": "Password is Missing",
     "next": "NEXT",
     "during-photos": "Upload During Photos (select 1 or more photos)",
     "after-photos": "Upload After Photos (select 1 or more photos)",
@@ -99,7 +102,8 @@
     <h1>{{ $t('app-name') }}</h1>
     <div id="nav">
       <router-link to="/">{{ $t('submit-evidence') }}</router-link> |
-      <router-link to="/howto">{{ $t('how-to') }}</router-link> 
+      <router-link to="/howto">{{ $t('how-to') }}</router-link> |
+      <router-link to="/evaluate">{{ $t('evaluate') }}</router-link>
       <!-- <router-link to="/faq">FAQ</router-link> -->
     </div>
     <router-view />

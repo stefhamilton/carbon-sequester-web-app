@@ -9,7 +9,10 @@
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
   "dependencies": {
+    "axios": "^0.24.0",
     "core-js": "^3.6.5",
+    "dayjs": "^1.10.7",
+    "exifreader": "^4.1.0",
     "firebase": "8.1.1",
     "moment": "^2.29.1",
     "uuid": "^8.3.2",
