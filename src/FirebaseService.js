@@ -46,6 +46,13 @@ const createDocument = (collection, document) => {
   return firestore.collection(collection).add(document);
 };
 
+const updateDocument = (collection, docId, document) => {
+  return firestore
+    .collection(collection)
+    .doc(docId)
+    .set(document, { merge: true });
+};
+
 const subscribeToAuthChanges = (handleAuthChange) => {
   auth.onAuthStateChanged((user) => {
     handleAuthChange(user);
@@ -55,6 +62,7 @@ const subscribeToAuthChanges = (handleAuthChange) => {
 export default {
   uploadFile,
   createDocument,
+  updateDocument,
   firestore,
   subscribeToAuthChanges,
   auth,
