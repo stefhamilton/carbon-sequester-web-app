@@ -444,6 +444,8 @@ export default {
       );
 
       this.stage = 'list';
+
+      await this.fetchProofsForEvaluation();
     },
   },
   mounted() {
