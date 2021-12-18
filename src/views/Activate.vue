@@ -15,62 +15,25 @@
             <input type="tel" v-model="formData.phoneNumber" />
           </label>
 
-           <div class="stage" v-show="stage === 1">
-          <h2>{{ $t('activation-photo') }}</h2>
+        </div>
+        <div class="stage" v-show="stage === 0">
+          <h2>{{ $t('activate') }}</h2>
           <input
             type="file"
-            @change="handleBeforePhotos"
+            @change="handleActivationPhotos"
             accept="image/jpeg"
             multiple
-            ref="activationphoto"
+            ref="activationPhotos"
           />
         </div>
-         
-          <!-- <label>
-            Payment Method:
-            <select v-model="formData.paymentMethod">
-              <option value="" disabled></option>
-              <option value="gcash" selected="selected">GCash</option>
-              <option value="globe">Globe</option>
-            </select>
-          </label> -->
-        </div>
+       
+        
         <div class="stage" v-show="stage === 1">
-          <h2>{{ $t('before-pictures') }}</h2>
-          <input
-            type="file"
-            @change="handleBeforePhotos"
-            accept="image/jpeg"
-            multiple
-            ref="beforePhotos"
-          />
-        </div>
-        <div class="stage" v-show="stage === 2">
-          <h2>{{ $t('during-photos') }}</h2>
-          <input
-            type="file"
-            @change="handleDuringPhotos"
-            accept="image/jpeg"
-            multiple
-            ref="duringPhotos"
-          />
-        </div>
-        <div class="stage" v-show="stage === 3">
-          <h2>{{ $t('after-photos') }}</h2>
-          <input
-            type="file"
-            @change="handleAfterPhotos"
-            accept="image/jpeg"
-            multiple
-            ref="afterPhotos"
-          />
-        </div>
-        <div class="stage" v-show="stage === 4">
           <h2>{{ $t('add-photo-descriptions') }}</h2>
           <div>
             <h3>{{ $t('before-photos') }}</h3>
             <div
-              v-for="photo of formData.beforePhotos"
+              v-for="photo of formData.activationPhotos"
               :key="photo.name"
               class="photo-list"
             >
@@ -90,54 +53,6 @@
               </div>
             </div>
           </div>
-          <div class="divider-line"></div>
-          <div>
-            <h3>{{ $t('during-photos-1') }}</h3>
-            <div
-              v-for="photo of formData.duringPhotos"
-              :key="photo.name"
-              class="photo-list"
-            >
-              <div class="left">
-                <img class="preview-image" :src="photo.src" />
-                Upload: {{ photoUploadProgress[photo.name] }}%
-              </div>
-              <div class="right">
-                <label>
-                  <textarea
-                    v-model="formData.photoDescriptions[photo.name]"
-                    cols="30"
-                    rows="10"
-                  ></textarea>
-                  <div>{{ $t('photo-description-2') }}</div>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div class="divider-line"></div>
-          <div>
-            <h3>{{ $t('after-photos-1') }}</h3>
-            <div
-              v-for="photo of formData.afterPhotos"
-              :key="photo.name"
-              class="photo-list"
-            >
-              <div class="left">
-                <img class="preview-image" :src="photo.src" />
-                Upload: {{ photoUploadProgress[photo.name] }}%
-              </div>
-              <div class="right">
-                <label>
-                  <textarea
-                    v-model="formData.photoDescriptions[photo.name]"
-                    cols="30"
-                    rows="10"
-                  ></textarea>
-                  <div>{{ $t('photo-description-3') }}</div>
-                </label>
-              </div>
-            </div>
-          </div>
           <button
             type="submit"
             class="next-button"
@@ -145,14 +60,15 @@
           >
             {{ $t('submit') }}
           </button>
-        </div>
-        <div v-show="stage === 5">
+           </div>
+
+        <div v-show="stage === 2">
           <h3>{{ $t('congratulations') }}</h3>
           <p>{{ $t('successfully-submitted') }}</p>
           <p>{{ $t('your-reference') }} {{ formData.referenceId }}</p>
           <p>
             {{ $t('additional-proofs') }}
-          </p>
+</p>
           <button type="button" class="next-button" @click="handleReset">
             {{ $t('click-here') }}
           </button>
@@ -161,7 +77,7 @@
       <button
         @click="handleNextButtonClick"
         :disabled="nextButtonDisabled"
-        v-show="stage < 4"
+        v-show="stage < 1"
         class="next-button"
       >
         {{ $t('next') }}
@@ -186,11 +102,10 @@ export default {
         name: '',
         phoneNumber: '',
         paymentMethod: '',
-        beforePhotos: [],
-        duringPhotos: [],
-        afterPhotos: [],
+        activationPhotos: [],
         referenceId: '',
         photoDescriptions: {},
+
       },
       submitButtonDisabled: true,
       localization: {
@@ -203,6 +118,7 @@ export default {
   },
   methods: {
     async handleNextButtonClick() {
+      print("next button pressed")
       if (this.stage === 0) {
         if (!this.formData.name) {
           alert('Name field is misssing');
@@ -213,87 +129,29 @@ export default {
           alert('Phone Number field is misssing');
           return;
         }
-
-        this.stage++;
-      } else if (this.stage === 1) {
-        if (this.formData.beforePhotos.length === 0) {
+        if (this.formData.activationPhotos.length === 0) {
           this.nextButtonDisabled = true;
           alert('At least 1 before photo is required');
           return;
         }
 
-        for (const photo of this.formData.beforePhotos) {
-          if (!photo.type.includes('image/jpeg')) {
-            alert('All files must be type JPEG');
-            return;
-          }
-        }
-
         this.stage++;
-      } else if (this.stage === 2) {
-        if (this.formData.duringPhotos.length === 0) {
-          this.nextButtonDisabled = true;
-          alert('At least 1 during photo is required');
-          return;
-        }
+      } else if (this.stage ===1) {
+        
 
-        for (const photo of this.formData.duringPhotos) {
+        for (const photo of this.formData.activationPhotos) {
           if (!photo.type.includes('image/jpeg')) {
             alert('All files must be type JPEG');
             return;
           }
         }
 
-        this.stage++;
-      } else if (this.stage === 3) {
-        if (this.formData.afterPhotos.length === 0) {
-          this.nextButtonDisabled = true;
-          alert('At least 1 after photo is required');
-          return;
-        }
-
-        for (const photo of this.formData.afterPhotos) {
-          if (!photo.type.includes('image/jpeg')) {
-            alert('All files must be type JPEG');
-            return;
-          }
-        }
-
+     
         // START UPLOADING PHOTOS
         const photoUploadPromises = [];
         this.formData.referenceId = uuid();
 
-        for (const photo of this.formData.beforePhotos) {
-          photo.src = URL.createObjectURL(photo);
-
-          this.photoUploadProgress[photo.name] = 0;
-          this.formData.photoDescriptions[photo.name] = '';
-
-          photoUploadPromises.push(
-            FirebaseService.uploadFile(
-              photo,
-              `${this.formData.referenceId}/${photo.name}`,
-              this.setPhotoUploadProgress
-            )
-          );
-        }
-
-        for (const photo of this.formData.duringPhotos) {
-          photo.src = URL.createObjectURL(photo);
-
-          this.photoUploadProgress[photo.name] = 0;
-          this.formData.photoDescriptions[photo.name] = '';
-
-          photoUploadPromises.push(
-            FirebaseService.uploadFile(
-              photo,
-              `${this.formData.referenceId}/${photo.name}`,
-              this.setPhotoUploadProgress
-            )
-          );
-        }
-
-        for (const photo of this.formData.afterPhotos) {
+        for (const photo of this.formData.activationPhotos) {
           photo.src = URL.createObjectURL(photo);
 
           this.photoUploadProgress[photo.name] = 0;
@@ -326,90 +184,50 @@ export default {
     setPhotoUploadProgress(name, progress) {
       this.photoUploadProgress[name] = progress;
     },
-    handleBeforePhotos() {
-      this.formData.beforePhotos = this.$refs.beforePhotos.files;
+    handleActivationPhotos() {
+      this.formData.activationPhotos = this.$refs.activationPhotos.files;
 
-      if (this.formData.beforePhotos.length === 0) {
+      if (this.formData.activationPhotos.length === 0) {
         this.nextButtonDisabled = true;
         return;
       }
 
-      if (this.formData.beforePhotos.length > 0) {
+      if (this.formData.activationPhotos.length > 0) {
         this.nextButtonDisabled = false;
       }
     },
-    handleDuringPhotos() {
-      this.formData.duringPhotos = this.$refs.duringPhotos.files;
-
-      if (this.formData.duringPhotos.length === 0) {
-        this.nextButtonDisabled = true;
-        return;
-      }
-
-      if (this.formData.duringPhotos.length > 0) {
-        this.nextButtonDisabled = false;
-      }
-    },
-    handleAfterPhotos() {
-      this.formData.afterPhotos = this.$refs.afterPhotos.files;
-
-      if (this.formData.afterPhotos.length === 0) {
-        this.nextButtonDisabled = true;
-        return;
-      }
-
-      if (this.formData.afterPhotos.length > 0) {
-        this.nextButtonDisabled = false;
-      }
-    },
+    
     async handleSubmit(event) {
       event.preventDefault();
 
-      const beforePhotos = [];
-      const duringPhotos = [];
-      const afterPhotos = [];
+      const activationPhotos = [];
 
-      this.formData.beforePhotos.forEach((photo) => {
-        beforePhotos.push({
-          url: this.photoUploadResults[photo.name],
-          name: photo.name,
-          description: this.formData.photoDescriptions[photo.name],
-          storagePath: `${this.formData.referenceId}/${photo.name}`,
-        });
-      });
-      this.formData.duringPhotos.forEach((photo) => {
-        duringPhotos.push({
-          url: this.photoUploadResults[photo.name],
-          name: photo.name,
-          description: this.formData.photoDescriptions[photo.name],
-          storagePath: `${this.formData.referenceId}/${photo.name}`,
-        });
-      });
-      this.formData.afterPhotos.forEach((photo) => {
-        afterPhotos.push({
-          url: this.photoUploadResults[photo.name],
-          name: photo.name,
-          description: this.formData.photoDescriptions[photo.name],
-          storagePath: `${this.formData.referenceId}/${photo.name}`,
-        });
-      });
 
-      const proof = {
+      this.formData.activationPhotos.forEach((photo) => {
+        activationPhotos.push({
+          url: this.photoUploadResults[photo.name],
+          name: photo.name,
+          description: this.formData.photoDescriptions[photo.name],
+          storagePath: `${this.formData.referenceId}/${photo.name}`,
+        });
+      });
+     
+
+      const activate = {
         referenceId: this.formData.referenceId,
         status: 'unevaluated',
         name: this.formData.name,
         phoneNumber: this.formData.phoneNumber,
         paymentMethod: this.formData.paymentMethod,
-        beforePhotos,
-        duringPhotos,
-        afterPhotos,
+        activationPhotos,
+
         timestamp: moment()
           .utc()
           .unix(),
       };
 
       try {
-        await FirebaseService.createDocument('proofs', proof);
+        await FirebaseService.createDocument('activate', activate);
 
         this.stage++;
       } catch (error) {
@@ -423,9 +241,7 @@ export default {
         name: '',
         phoneNumber: '',
         paymentMethod: '',
-        beforePhotos: [],
-        duringPhotos: [],
-        afterPhotos: [],
+        activationPhotos: [],
       };
       this.submitButtonDisabled = true;
     },
