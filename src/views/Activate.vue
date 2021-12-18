@@ -14,7 +14,6 @@
             {{ $t('phone-number') }}:
             <input type="tel" v-model="formData.phoneNumber" />
           </label>
-
         </div>
         <div class="stage" v-show="stage === 0">
           <h2>{{ $t('activate') }}</h2>
@@ -26,8 +25,7 @@
             ref="activationPhotos"
           />
         </div>
-       
-        
+
         <div class="stage" v-show="stage === 1">
           <h2>{{ $t('add-photo-descriptions') }}</h2>
           <div>
@@ -60,7 +58,7 @@
           >
             {{ $t('submit') }}
           </button>
-           </div>
+        </div>
 
         <div v-show="stage === 2">
           <h3>{{ $t('congratulations') }}</h3>
@@ -68,7 +66,7 @@
           <p>{{ $t('your-reference') }} {{ formData.referenceId }}</p>
           <p>
             {{ $t('additional-proofs') }}
-</p>
+          </p>
           <button type="button" class="next-button" @click="handleReset">
             {{ $t('click-here') }}
           </button>
@@ -92,7 +90,7 @@ import FirebaseService from '@/FirebaseService';
 import moment from 'moment';
 
 export default {
-  name: 'App',
+  name: 'Activate',
   components: {},
   data() {
     return {
@@ -105,7 +103,6 @@ export default {
         activationPhotos: [],
         referenceId: '',
         photoDescriptions: {},
-
       },
       submitButtonDisabled: true,
       localization: {
@@ -117,16 +114,18 @@ export default {
     };
   },
   methods: {
-    async handleNextButtonClick() {
-      print("next button pressed")
+    handleNextButtonClick: async function() {
+      // print('next button pressed');
+      console.log(this.stage);
+
       if (this.stage === 0) {
         if (!this.formData.name) {
-          alert('Name field is misssing');
+          alert('Name field is missing');
           return;
         }
 
         if (!this.formData.phoneNumber) {
-          alert('Phone Number field is misssing');
+          alert('Phone Number field is missing');
           return;
         }
         if (this.formData.activationPhotos.length === 0) {
@@ -136,9 +135,7 @@ export default {
         }
 
         this.stage++;
-      } else if (this.stage ===1) {
-        
-
+      } else if (this.stage === 1) {
         for (const photo of this.formData.activationPhotos) {
           if (!photo.type.includes('image/jpeg')) {
             alert('All files must be type JPEG');
@@ -146,7 +143,6 @@ export default {
           }
         }
 
-     
         // START UPLOADING PHOTOS
         const photoUploadPromises = [];
         this.formData.referenceId = uuid();
@@ -196,12 +192,11 @@ export default {
         this.nextButtonDisabled = false;
       }
     },
-    
+
     async handleSubmit(event) {
       event.preventDefault();
 
       const activationPhotos = [];
-
 
       this.formData.activationPhotos.forEach((photo) => {
         activationPhotos.push({
@@ -211,7 +206,6 @@ export default {
           storagePath: `${this.formData.referenceId}/${photo.name}`,
         });
       });
-     
 
       const activate = {
         referenceId: this.formData.referenceId,
