@@ -134,14 +134,6 @@ export default {
           return;
         }
 
-        this.stage++;
-      } else if (this.stage === 1) {
-        for (const photo of this.formData.activationPhotos) {
-          if (!photo.type.includes('image/jpeg')) {
-            alert('All files must be type JPEG');
-            return;
-          }
-        }
 
         // START UPLOADING PHOTOS
         const photoUploadPromises = [];
@@ -162,8 +154,6 @@ export default {
           );
         }
 
-        this.stage++;
-
         try {
           const resultPromises = await Promise.all(photoUploadPromises);
 
@@ -175,6 +165,19 @@ export default {
         } catch (error) {
           // nothing
         }
+
+        this.stage++;
+      } else if (this.stage === 1) {
+        for (const photo of this.formData.activationPhotos) {
+          if (!photo.type.includes('image/jpeg')) {
+            alert('All files must be type JPEG');
+            return;
+          }
+        }
+
+
+        this.stage++;
+
       }
     },
     setPhotoUploadProgress(name, progress) {
@@ -193,7 +196,7 @@ export default {
       }
     },
 
-    async handleSubmit(event) {
+    handleSubmit: async function(event) {
       event.preventDefault();
 
       const activationPhotos = [];
@@ -213,7 +216,7 @@ export default {
         name: this.formData.name,
         phoneNumber: this.formData.phoneNumber,
         paymentMethod: this.formData.paymentMethod,
-        activationPhotos,
+        activationPhotos: activationPhotos,
 
         timestamp: moment()
           .utc()
