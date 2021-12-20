@@ -3,6 +3,7 @@
   "en": {
     "app-name":"Carbon Capture Evidence Web App",
     "how-to-create-biochar":"How To Create Biochar",
+    "activate": "Activate",
     "submit-evidence": "Submit Evidence",
     "name": "Name",
     "phone-number": "Phone Number",
@@ -101,6 +102,7 @@
     </select>
     <h1>{{ $t('app-name') }}</h1>
     <div id="nav">
+      <router-link to="/activate">{{ $t('activate') }}</router-link> |
       <router-link to="/">{{ $t('submit-evidence') }}</router-link> |
       <router-link to="/howto">{{ $t('how-to') }}</router-link> |
       <router-link to="/evaluate">{{ $t('evaluate') }}</router-link>

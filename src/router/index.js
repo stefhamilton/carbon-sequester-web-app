@@ -1,8 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import SubmitProof from '../views/SubmitProof.vue';
 import Evaluate from '../views/Evaluate.vue';
+import Activate from '../views/Activate.vue';
 
 const routes = [
+  {
+    path:'/activate',
+    name: 'Activate',
+    component: Activate,
+  },
   {
     path: '/',
     name: 'Submit Proof',
